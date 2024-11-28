@@ -9,7 +9,7 @@ export default function ProductList() {
   const [searchQuery, setSearchQuery] = useState('');
   const { data: products, isLoading, error } = useQuery({
     queryKey: ['products', searchQuery],
-    queryFn: () => fetchProducts(searchQuery)
+    queryFn: () => fetchProducts(searchQuery),
   });
 
   if (isLoading) return <div className="text-center">Loading...</div>;
