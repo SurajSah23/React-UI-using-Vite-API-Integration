@@ -2,7 +2,7 @@
   position: relative;
   width: 100%;
   max-width: 300px;
-  margin: 0 auto;  /* Center the container */
+  margin: 0 auto;
   margin-bottom: 50px;
   padding: 1rem;
 }
@@ -35,7 +35,7 @@
 
 @media (max-width: 768px) {
   .search-bar-container {
-    max-width: 80%;  /* Adjust max-width for medium screens */
+    max-width: 80%; 
     margin-bottom: 40px;
     padding: 1rem;
   }
@@ -55,7 +55,7 @@
 
 @media (max-width: 480px) {
   .search-bar-container {
-    max-width: 100%;  /* Full width on small screens */
+    max-width: 100%; 
     margin: 0 10px;
     margin-bottom: 30px;
   }
