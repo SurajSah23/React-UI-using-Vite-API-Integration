@@ -13,14 +13,16 @@ export default function SearchBar({ onSearch }) {
 
   return (
     <form onSubmit={handleSubmit} className="search-bar-container">
-      <input
-        type="text"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        placeholder="Search products..."
-        className="search-bar-input"
-      />
-      <MagnifyingGlassIcon className="search-bar-icon" />
+      <div className="search-bar-input-wrapper">
+        <MagnifyingGlassIcon className="search-bar-icon" />
+        <input
+          type="text"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Search products..."
+          className="search-bar-input"
+        />
+      </div>
     </form>
   );
 }
