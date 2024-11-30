@@ -1,14 +1,14 @@
 import { useState } from 'react';
-import PropTypes from 'prop-types'; 
+import PropTypes from 'prop-types';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
-import './Searchbar.css'; 
+import './Searchbar.css';
 
 export default function SearchBar({ onSearch }) {
   const [query, setQuery] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSearch(query);
+    onSearch(query); 
   };
 
   return (
@@ -28,5 +28,5 @@ export default function SearchBar({ onSearch }) {
 }
 
 SearchBar.propTypes = {
-  onSearch: PropTypes.func.isRequired, 
+  onSearch: PropTypes.func.isRequired,
 };

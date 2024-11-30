@@ -1,25 +1,41 @@
-import { useQuery } from '@tanstack/react-query';
-import { Link } from 'react-router-dom';
-import { fetchProducts } from '../api';
-import SearchBar from './Searchbar';
-import './ProductList.css'; 
-import { useState } from 'react';
+import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { fetchProducts } from "../api/index";  
+import SearchBar from "./Searchbar";
+import useDebouncedSearch from "../api/useDebouncedSearch";  
+import { Link } from "react-router-dom"; 
+import "./ProductList.css";
 
 export default function ProductList() {
-  const [searchQuery, setSearchQuery] = useState('');
-  const { data: products, isLoading, error } = useQuery({
-    queryKey: ['products', searchQuery],
-    queryFn: () => fetchProducts(searchQuery),
+  const [searchQuery, setSearchQuery] = useState("");
+
+  // Use the custom debounced search hook
+  const debouncedSearchQuery = useDebouncedSearch(searchQuery);
+
+  const {
+    data: products,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["products", debouncedSearchQuery],
+    queryFn: () => fetchProducts(debouncedSearchQuery), 
+    enabled: debouncedSearchQuery.length > 0 || !searchQuery, 
   });
 
   if (isLoading) return <div className="text-center">Loading...</div>;
   if (error) return <div className="text-red-500">Error: {error.message}</div>;
 
+  const filteredProducts = debouncedSearchQuery
+    ? products.filter((product) =>
+        product.title.toLowerCase().startsWith(debouncedSearchQuery.toLowerCase())  
+      )
+    : products;
+
   return (
     <div className="product-list-container">
-      <SearchBar onSearch={setSearchQuery} />
+      <SearchBar onSearch={setSearchQuery} /> {/* Pass the search setter to the SearchBar */}
       <div className="product-grid">
-        {products?.map((product) => (
+        {filteredProducts?.map((product) => (
           <Link
             key={product.id}
             to={`/product/${product.id}`}
